@@ -153,9 +153,14 @@ class MCPClient {
   }
 }
 async function main() {
+  if (process.argv.length < 3) {
+    console.log("Usage: node build/index.js <server_url>");
+    return;
+  }
+
   const mcpClient = new MCPClient();
   try {
-    await mcpClient.connectToServer("http://localhost:3001/sse");
+    await mcpClient.connectToServer(process.argv[2]);
 
     await mcpClient.chatLoop();
   } finally {
